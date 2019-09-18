@@ -14,7 +14,7 @@ interface CachePoolHandler
      * @param mixed          $item
      * @param \DateTime|null $expiration
      */
-    public function cacheItem(string $key, $item, \DateTime $expiration = null);
+    public function cacheItem(string $key, $item, \DateTime $expiration);
 
     /**
      * @param string $timeToLive

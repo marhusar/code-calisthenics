@@ -26,11 +26,11 @@ class InMemoryCachePoolHandler implements CachePoolHandler
     }
 
     /**
-     * @param string         $key
-     * @param mixed          $item
-     * @param \DateTime|null $expiration
+     * @param string    $key
+     * @param mixed     $item
+     * @param \DateTime $expiration
      */
-    public function cacheItem(string $key, $item, \DateTime $expiration = null)
+    public function cacheItem(string $key, $item, \DateTime $expiration)
     {
         $this->cachedItems->put($key, new CachedItem($item, $expiration));
     }
