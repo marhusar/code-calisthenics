@@ -14,14 +14,22 @@ class CachedLanguageRepository implements LanguageRepository
     /** @var CachePoolHandler */
     private $cachePoolHandler;
 
+    /** @var string */
+    private $cacheTimeToLive;
+
     /**
      * @param LanguageRepository $languageRepository
      * @param CachePoolHandler   $cachePoolHandler
+     * @param string             $cacheTimeToLive
      */
-    public function __construct(LanguageRepository $languageRepository, CachePoolHandler $cachePoolHandler)
-    {
+    public function __construct(
+        LanguageRepository $languageRepository,
+        CachePoolHandler $cachePoolHandler,
+        string $cacheTimeToLive
+    ) {
         $this->languageRepository = $languageRepository;
         $this->cachePoolHandler   = $cachePoolHandler;
+        $this->cacheTimeToLive    = $cacheTimeToLive;
     }
 
     /**
@@ -37,7 +45,7 @@ class CachedLanguageRepository implements LanguageRepository
 
         if ($item->isHit() === false) {
             $language       = $this->languageRepository->findLanguageByCode($languageCode);
-            $expirationDate = $this->cachePoolHandler->cacheTimeToLive('+24 hours');
+            $expirationDate = $this->cachePoolHandler->cacheTimeToLive($this->cacheTimeToLive);
 
             if ($language === null) {
                 return $language;

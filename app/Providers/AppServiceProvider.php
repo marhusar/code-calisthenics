@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(LanguageRepository::class, InMemoryLanguageRepository::class);
 
         $this->app->extend(LanguageRepository::class, function (LanguageRepository $repository) {
-            return new CachedLanguageRepository($repository, new InMemoryCachePoolHandler());
+            return new CachedLanguageRepository($repository, new InMemoryCachePoolHandler(), '+24 hours');
         });
     }
 }
